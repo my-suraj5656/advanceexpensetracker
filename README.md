@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# 💸 Expense Tracker - Frontend Assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A sleek and user-friendly web application for tracking your expenses! Add, edit, delete, and view expenses categorized by date or type—all while staying within your budget. 🚀
 
-## Available Scripts
+## 🌐 Live Demo
+Check out the live application here: [Expense Tracker on Vercel](https://expense-tracker-web-app-seven.vercel.app/) 🎉
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## ✨ Features
+- **💰 Wallet Balance Management**:  
+  - Default balance starts at **5000**.  
+  - Add funds to the wallet anytime.  
+  - Prevent overspending with alerts if the expense exceeds the wallet balance.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **📝 Expense Management**:  
+  - Add new expenses with details like **title, amount, category, and date**.  
+  - Edit or delete existing expenses effortlessly.  
+  - Wallet balance dynamically adjusts based on your transactions.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **📊 Expense Summary & Trends**:  
+  - A **Pie Chart** to categorize and visualize total expenses.  
+  - A **Bar Chart** to highlight spending trends based on categories.
 
-### `npm test`
+- **🔒 Data Persistence**:  
+  - All data is stored in `localStorage`, ensuring your expenses and wallet balance remain intact even after a page refresh.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **📱 Responsive Design**:  
+  - Designed to provide a seamless experience on all devices—desktop, tablet, and mobile.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠️ Functional Requirements
+### 1️⃣ **Add Expense Form**
+- Fields: **Title, Amount, Category, and Date**.  
+- Includes validation for required fields. 🚦
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2️⃣ **Add Income Form**
+- Add more funds to the wallet using this form. 💵
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3️⃣ **Expense List**
+- View all expenses with options to **edit** 🖊️ or **delete** ❌ entries.
 
-### `npm run eject`
+### 4️⃣ **Expense Summary**
+- Visualize categorized expenses using a **Pie Chart**. 🥧
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 5️⃣ **Expense Trends**
+- Track spending trends across categories using a **Bar Chart**. 📉
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 6️⃣ **Edit/Delete Functionality**
+- Make modifications or remove expense entries with ease. 🔄
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 7️⃣ **Responsive Design**
+- Optimized for all screen sizes—experience hassle-free navigation anywhere. 🌍
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🧑‍💻 Technologies Used
+### Frontend
+- **⚛️ React.JS**
+- **🌐 HTML**
+- **🎨 CSS (Plain CSS, no libraries)**  
+- **📜 JavaScript**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Libraries
+- **[Recharts](https://recharts.org/en-US/)**: For stunning charts 📊.  
+- **[React-Modal](https://reactcommunity.org/react-modal/)**: For smooth modals 🪟.  
+- **[Notistack](https://iamhosseindhv.com/notistack/demos)**: For sleek notifications 🔔.  
+- **[React-Icons](https://react-icons.github.io/react-icons/)**: For beautiful icons 🎨.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🎨 Design
+### Figma Prototype
+🖌️ [Click to view the Figma design](https://www.figma.com/proto/yHps1cSScYurYlrtnHmQMN/Crio-Takehome---Expense-Tracker?type=design&node-id=2-6&t=f21zpQNA6iD7q7Ha-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=2%3A6)  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Design Guidelines
+- Modular and reusable components for UI elements. 🛠️  
+- Fonts and color schemes are aligned with the provided design. 🎯
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
