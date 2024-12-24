@@ -8,68 +8,117 @@ import AddBalanceForm from "../../components/Forms/AddBalanceForm/AddBalanceForm
 import PieChart from "../../components/PieChart/PieChart";
 import BarChart from "../../components/BarChart/BarChart";
 
-const useLocalStorage = (key, initialValue) => {
-  const [storedValue, setStoredValue] = useState(() => {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : initialValue;
+export default function Home() {
+  const [balance, setBalance] = useState(0);
+  const [expense, setExpense] = useState(0);
+  const [expenseList, setExpenseList] = useState([]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  //Show hide modals
+  const [isOpenExpense, setIsOpenExpense] = useState(false);
+  const [isOpenBalance, setIsOpenBalance] = useState(false);
+
+  const [categorySpends, setCategorySpends] = useState({
+    food: 0,
+    entertainment: 0,
+    travel: 0,
+  });
+  const [categoryCount, setCategoryCount] = useState({
+    food: 0,
+    entertainment: 0,
+    travel: 0,
   });
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(storedValue));
-  }, [key, storedValue]);
+    //Check localStorage
+    const localBalance = localStorage.getItem("balance");
 
-  return [storedValue, setStoredValue];
-};
-
-const calculateCategoryStats = (expenseList) => {
-  return expenseList.reduce(
-    (acc, item) => {
-      acc.spends[item.category] =
-        (acc.spends[item.category] || 0) + Number(item.price);
-      acc.counts[item.category] = (acc.counts[item.category] || 0) + 1;
-      return acc;
-    },
-    {
-      spends: { food: 0, entertainment: 0, travel: 0 },
-      counts: { food: 0, entertainment: 0, travel: 0 },
+    if (localBalance) {
+      setBalance(Number(localBalance));
+    } else {
+      setBalance(5000);
+      localStorage.setItem("balance", 5000);
     }
-  );
-};
 
-export default function Home() {
-  const [balance, setBalance] = useLocalStorage("balance", 5000);
-  const [expenseList, setExpenseList] = useLocalStorage("expenses", []);
+    const items = JSON.parse(localStorage.getItem("expenses"));
 
-  // Show hide modals
-  const [isOpenExpense, setIsOpenExpense] = useState(false);
-  const [isOpenBalance, setIsOpenBalance] = useState(false);
-  // derived state
-  const { spends: categorySpends, counts: categoryCounts } =
-    calculateCategoryStats(expenseList);
-  const expense = expenseList.reduce(
-    (total, item) => total + Number(item.price),
-    0
-  );
+    setExpenseList(items || []);
+    setIsMounted(true);
+  }, []);
 
-  const handleAddIncome = () => {
-    setIsOpenBalance(true);
-  };
-  const handleAddExpense = () => {
-    setIsOpenExpense(true);
-  };
+  // saving expense list in localStorage
+  useEffect(() => {
+    if (expenseList.length > 0 || isMounted) {
+      localStorage.setItem("expenses", JSON.stringify(expenseList));
+    }
+
+    if (expenseList.length > 0) {
+      setExpense(
+        expenseList.reduce(
+          (accumulator, currentValue) =>
+            accumulator + Number(currentValue.price),
+          0
+        )
+      );
+    } else {
+      setExpense(0);
+    }
+
+    let foodSpends = 0,
+      entertainmentSpends = 0,
+      travelSpends = 0;
+    let foodCount = 0,
+      entertainmentCount = 0,
+      travelCount = 0;
+
+    expenseList.forEach((item) => {
+      if (item.category == "food") {
+        foodSpends += Number(item.price);
+        foodCount++;
+      } else if (item.category == "entertainment") {
+        entertainmentSpends += Number(item.price);
+        entertainmentCount++;
+      } else if (item.category == "travel") {
+        travelSpends += Number(item.price);
+        travelCount++;
+      }
+    });
+
+    setCategorySpends({
+      food: foodSpends,
+      travel: travelSpends,
+      entertainment: entertainmentSpends,
+    });
+
+    setCategoryCount({
+      food: foodCount,
+      travel: travelCount,
+      entertainment: entertainmentCount,
+    });
+  }, [expenseList]);
+
+  // saving balance in localStorage
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem("balance", balance);
+    }
+  }, [balance]);
 
   return (
     <div className={styles.container}>
       <h1>Expense Tracker</h1>
 
       {/* Cards and pie chart wrapper */}
+
       <div className={styles.cardsWrapper}>
         <Card
           title="Wallet Balance"
           money={balance}
           buttonText="+ Add Income"
           buttonType="success"
-          handleClick={handleAddIncome}
+          handleClick={() => {
+            setIsOpenBalance(true);
+          }}
         />
 
         <Card
@@ -78,7 +127,9 @@ export default function Home() {
           buttonText="+ Add Expense"
           buttonType="failure"
           success={false}
-          handleClick={handleAddExpense}
+          handleClick={() => {
+            setIsOpenExpense(true);
+          }}
         />
 
         <PieChart
@@ -86,7 +137,7 @@ export default function Home() {
             { name: "Food", value: categorySpends.food },
             { name: "Entertainment", value: categorySpends.entertainment },
             { name: "Travel", value: categorySpends.travel },
-          ].filter((item) => item.value)}
+          ]}
         />
       </div>
 
@@ -102,10 +153,10 @@ export default function Home() {
 
         <BarChart
           data={[
-            { name: "Food", value: categoryCounts.food },
-            { name: "Entertainment", value: categoryCounts.entertainment },
-            { name: "Travel", value: categoryCounts.travel },
-          ].filter((item) => item.value)}
+            { name: "Food", value: categoryCount.food },
+            { name: "Entertainment", value: categoryCount.entertainment },
+            { name: "Travel", value: categoryCount.travel },
+          ]}
         />
       </div>
 
